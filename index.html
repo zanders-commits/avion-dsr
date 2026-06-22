@@ -852,17 +852,6 @@ footer { background: #fff; padding: 36px 32px; border-top: 1px solid var(--stone
         </div>
         <svg class="collateral-arr" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </a>
-
-      <a class="collateral-card reveal" href="mailto:zanders@reeco.com?subject=Avion%20Implementation%20Overview%20request">
-        <div class="collateral-icon notes">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-        </div>
-        <div>
-          <div class="collateral-title">Implementation Overview</div>
-          <div class="collateral-desc">AP automation live in about 1 week; full purchasing rollout in 1 to 2 months. Available on request.</div>
-        </div>
-        <svg class="collateral-arr" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </a>
     </div>
   </div>
 </section>
@@ -888,7 +877,7 @@ footer { background: #fff; padding: 36px 32px; border-top: 1px solid var(--stone
           <span>How does the M3 integration hold up?</span>
           <span class="faq-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
         </summary>
-        <div class="faq-a">Reeco runs a real-time, two-way daily sync with M3, its most proven integration, with PO spend and GL/budget data syncing automatically every day. Reeco will share M3 integration error-rate data as part of diligence.</div>
+        <div class="faq-a">Reeco runs a real-time, two-way daily sync with M3, its most proven integration, with PO spend and GL/budget data syncing automatically every day. The true failure rate runs under 1%. Most of what looks like a sync failure is the system working as intended, correctly blocking duplicate invoices and entries posted to closed accounting periods.</div>
       </details>
 
       <details class="faq-item reveal">
@@ -912,15 +901,7 @@ footer { background: #fff; padding: 36px 32px; border-top: 1px solid var(--stone
           <span>How do duplicate invoices get caught?</span>
           <span class="faq-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
         </summary>
-        <div class="faq-a">Reeco will document its duplicate-invoice detection methodology and the M3 error-handling flow as part of the follow-up.</div>
-      </details>
-
-      <details class="faq-item reveal">
-        <summary class="faq-q">
-          <span>How does user administration and SSO work?</span>
-          <span class="faq-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
-        </summary>
-        <div class="faq-a">User add and remove is handled by an admin today; SSO is not currently in place. Approval workflows are configurable per property.</div>
+        <div class="faq-a">Reeco automatically detects duplicate invoices and blocks them from posting to M3 before they ever double-count. This is built into the M3 sync and is the single largest category of entries the system intentionally stops.</div>
       </details>
     </div>
   </div>
