@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Avion Hospitality × Reeco — Interactive Pricing</title>
+<style>
+:root{
+  --navy-900:#0B2540; --navy-800:#103154; --navy-700:#1C4067;
+  --mint-700:#0E9B8A; --mint-600:#16B8A6; --mint-100:#E7F7F4; --mint-50:#F2FBFA;
+  --stone-50:#F8FAFB; --stone-100:#EEF2F4; --stone-200:#E1E7EA; --stone-700:#5A6B75;
+  --white:#fff; --ink:#0B2540; --strike:#9AA7AE;
+  --radius-lg:14px; --radius:10px;
+  --fw-regular:400; --fw-medium:500; --fw-bold:700; --fw-black:800;
+  --font-sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--font-sans);color:var(--ink);background:var(--stone-50);-webkit-font-smoothing:antialiased;padding-bottom:84px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+.top{background:linear-gradient(135deg,var(--navy-900),var(--navy-700));color:#fff;padding:34px 0 30px}
+.top .wrap{display:flex;flex-direction:column;gap:6px}
+.brandline{display:flex;align-items:center;gap:10px;font-size:13px;letter-spacing:.5px;opacity:.85;text-transform:uppercase;font-weight:var(--fw-bold)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--mint-600);box-shadow:0 0 0 4px rgba(22,184,166,.25)}
+h1{margin:6px 0 4px;font-size:30px;font-weight:var(--fw-black);letter-spacing:-.01em}
+h1 em{font-style:normal;opacity:.5;font-weight:var(--fw-regular);font-size:.62em;margin:0 .12em;vertical-align:.18em}
+.sub{font-size:15px;opacity:.9;max-width:760px;line-height:1.5}
+.discount-badge{display:inline-flex;align-items:center;gap:8px;background:var(--mint-100);color:var(--navy-900);font-weight:var(--fw-bold);font-size:13px;padding:7px 14px;border-radius:999px;margin-top:14px;width:max-content;max-width:100%}
+.discount-badge svg{width:14px;height:14px;color:var(--mint-700);flex:none}
+.controls{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:22px 0 12px}
+.filters{display:flex;gap:6px;background:var(--white);border:1px solid var(--stone-200);border-radius:999px;padding:4px}
+.filters button{border:none;background:none;font:inherit;font-size:13px;font-weight:var(--fw-bold);color:var(--stone-700);padding:8px 16px;border-radius:999px;cursor:pointer}
+.filters button.active{background:var(--navy-900);color:#fff}
+.search{flex:1;min-width:220px}
+.search input{width:100%;padding:11px 14px;border:1px solid var(--stone-200);border-radius:var(--radius);font:inherit;font-size:14px}
+.legend{font-size:12px;color:var(--stone-700);margin-left:auto}
+.card{background:var(--white);border:1px solid var(--stone-200);border-radius:var(--radius-lg);overflow:visible}
+table{width:100%;border-collapse:collapse;font-size:14px}
+thead th{
+  background:var(--navy-900);color:#fff;text-align:left;padding:13px 14px;
+  font-size:11.5px;letter-spacing:.6px;text-transform:uppercase;font-weight:var(--fw-bold);
+  position:sticky;top:0;z-index:10;box-shadow:0 1px 0 rgba(255,255,255,.06);
+}
+thead th.num{text-align:right}
+thead th.ctr{text-align:center}
+thead th.sortable{cursor:pointer;user-select:none;white-space:nowrap}
+thead th.sortable:hover{background:var(--navy-800)}
+.caret{display:inline-block;width:10px;margin-left:5px;opacity:.45;font-size:10px}
+thead th.sorted .caret{opacity:1;color:var(--mint-600)}
+tbody td{padding:13px 14px;border-top:1px solid var(--stone-100);vertical-align:middle}
+tbody tr:hover{background:var(--mint-50)}
+.pname{font-weight:var(--fw-bold);color:var(--navy-900)}
+.pmeta{font-size:12px;color:var(--stone-700);margin-top:2px}
+.tag{display:inline-block;font-size:11px;font-weight:var(--fw-bold);padding:3px 9px;border-radius:999px;text-transform:uppercase;letter-spacing:.4px}
+.tag.F{background:#E7EEF5;color:var(--navy-800)}
+.tag.L{background:var(--mint-100);color:var(--mint-700)}
+.num{text-align:right;font-variant-numeric:tabular-nums}
+.base{font-weight:var(--fw-bold);color:var(--navy-900)}
+.ctr{text-align:center}
+.switch{position:relative;display:inline-block;width:42px;height:24px}
+.switch input{opacity:0;width:0;height:0}
+.slider{position:absolute;cursor:pointer;inset:0;background:var(--stone-200);transition:.2s;border-radius:999px}
+.slider:before{content:"";position:absolute;height:18px;width:18px;left:3px;top:3px;background:#fff;transition:.2s;border-radius:50%;box-shadow:0 1px 2px rgba(0,0,0,.2)}
+.switch input:checked+.slider{background:var(--mint-600)}
+.switch input:checked+.slider:before{transform:translateX(18px)}
+.pos{margin-top:7px;font-size:12px;padding:5px 7px;border:1px solid var(--stone-200);border-radius:7px;display:none;max-width:150px}
+.pos.show{display:block}
+.rowtotal{font-weight:var(--fw-black);color:var(--navy-900)}
+.setup-strip{display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:space-between;margin-top:18px;padding:18px 20px;background:var(--mint-50);border:1px solid var(--mint-100);border-radius:var(--radius-lg)}
+.setup-strip .l{font-size:14px;color:var(--navy-800);line-height:1.5}
+.setup-strip b{color:var(--navy-900)}
+.strike{color:var(--strike);text-decoration:line-through;font-weight:var(--fw-bold)}
+.free{color:var(--mint-700);font-weight:var(--fw-black)}
+.waiver-pill{display:inline-flex;align-items:center;gap:7px;background:var(--navy-900);color:#fff;font-weight:var(--fw-bold);font-size:12.5px;padding:8px 14px;border-radius:999px}
+.waiver-pill svg{width:13px;height:13px;color:var(--mint-600);flex:none}
+.summary{position:fixed;left:0;right:0;bottom:0;background:var(--navy-900);color:#fff;box-shadow:0 -6px 22px rgba(11,37,64,.28);z-index:20}
+.summary .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:30px;padding:14px 24px}
+.stat .k{font-size:11px;text-transform:uppercase;letter-spacing:.6px;opacity:.7;font-weight:var(--fw-bold)}
+.stat .v{font-size:20px;font-weight:var(--fw-black);font-variant-numeric:tabular-nums}
+.stat .v.mint{color:var(--mint-600)}
+.summary .spacer{flex:1}
+.foot{font-size:12px;color:var(--stone-700);text-align:center;padding:22px}
+.foot a{color:var(--mint-700)}
+@media(max-width:760px){
+  thead th:nth-child(2),tbody td:nth-child(2){display:none}
+  .summary .wrap{gap:18px}
+  .stat .v{font-size:17px}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div class="brandline"><span class="dot"></span> Interactive Pricing Proposal</div>
+    <h1>Avion Hospitality <em>×</em> Reeco</h1>
+    <div class="sub">Per-property monthly pricing across your portfolio of 40 hotels — 17 Full-Service and 23 Select-Service. Toggle Inventory and Culinary add-ons by property to see your total update live. AP Automation + Purchasing &amp; Receiving is included on every property.</div>
+    <div class="discount-badge">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      20% Enterprise Discount Applied · M3 Setup Fees Waived
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="controls">
+    <div class="filters">
+      <button data-f="all" class="active">All (40)</button>
+      <button data-f="F">Full-Service (17)</button>
+      <button data-f="L">Select-Service (23)</button>
+    </div>
+    <div class="search"><input id="q" placeholder="Search a property…"></div>
+    <div class="legend">Add-ons: Inventory +$200 · Culinary +$200 / property / month · Click a column to sort</div>
+  </div>
+
+  <div class="card">
+    <table>
+      <thead>
+        <tr>
+          <th class="sortable" data-k="name">Property <span class="caret"></span></th>
+          <th class="sortable" data-k="type">Type <span class="caret"></span></th>
+          <th class="num sortable" data-k="base">AP + Purchasing <span class="caret"></span></th>
+          <th class="ctr">Inventory<br>+$200</th>
+          <th class="ctr">Culinary<br>+$200</th>
+          <th class="num sortable" data-k="total">Monthly <span class="caret"></span></th>
+        </tr>
+      </thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+
+  <div class="setup-strip">
+    <div class="l">
+      <b>One-Time Setup:</b> <span class="strike">$1,000 / property</span> &nbsp;→&nbsp; <span class="free">$0 / property</span><br>
+      M3 integration fees are fully waived for Reeco — the only procurement platform with this status. Across 40 properties that is a <b>$40,000</b> setup credit.
+    </div>
+    <div class="waiver-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      Setup Waived — M3 Preferred-Partner Integration
+    </div>
+  </div>
+
+  <div class="foot">
+    Pricing reflects list ($650 FS / $450 SS for AP + Purchasing) less a 20% enterprise discount. Add-ons priced flat at $200/property/month. Initial term 24 months · billed in advance · Net 30. Prepared June 19, 2026. Learn more at <a href="https://www.reeco.com">reeco.com</a>.
+  </div>
+</div>
+
+<div class="summary">
+  <div class="wrap">
+    <div class="stat"><div class="k">Properties</div><div class="v" id="s-props">40</div></div>
+    <div class="stat"><div class="k">Inventory On</div><div class="v" id="s-inv">0</div></div>
+    <div class="stat"><div class="k">Culinary On</div><div class="v" id="s-cul">0</div></div>
+    <div class="spacer"></div>
+    <div class="stat"><div class="k">Monthly Total</div><div class="v mint" id="s-monthly">$0</div></div>
+  </div>
+</div>
+
+<script>
+var FS=520, SS=360, INV=200, CUL=200;
+var POS=["Micros / Oracle","Toast","Square","SkyTouch","Other / TBD"];
+var DATA=[
+["Embassy Suites College Station","F",162],
+["Embassy Suites Houston Energy Corridor","F",216],
+["Embassy Suites Houston West Katy","F",208],
+["Fairfield Inn & Suites Houston Memorial City Area","L",137],
+["Home2 Suites Houston Energy Corridor","L",142],
+["Hyatt Regency Tulsa Downtown","F",444],
+["Courtyard Kingston","L",89],
+["Hyatt House Fishkill","L",135],
+["Hyatt House Morristown","L",132],
+["Hyatt House Branchburg Bridgewater","L",139],
+["Hyatt Place Secaucus Meadowlands","L",159],
+["Fordson Hotel","F",135],
+["Homewood Suites Eatontown","L",131],
+["Hyatt House The Woodlands/Shenandoah","L",148],
+["The Windsor Court","F",314],
+["TownePlace Suites Austin South","L",103],
+["Sheraton Indianapolis Hotel at Keystone Crossing","F",395],
+["Kansas City Marriott Downtown","F",970],
+["Marriott Lexington Griffin Gate Golf Resort & Spa","F",408],
+["Margaritaville Beach Resort South Padre Island","F",256],
+["Hyatt House Charleston Historic District","F",107],
+["The Lowline Hotel (fmr Hyatt Place Charleston Historic District)","F",191],
+["Hotel Savoy Kansas City, Tapestry Collection by Hilton","F",120],
+["Hyatt Place Atlanta Alpharetta","L",127],
+["Hyatt Place Atlanta Norcross","L",126],
+["St. Petersburg Marriott Clearwater","F",209],
+["Hyatt House Houston Medical Center","L",141],
+["Hyatt Place Houston Medical Center","L",157],
+["DoubleTree Dallas Campbell Centre","F",300],
+["Hyatt Centric Beale Street Memphis","L",363],
+["Hyatt Place Memphis/Primacy Parkway","L",126],
+["Hyatt Place Nashville/Brentwood","L",124],
+["Hyatt Place Nashville/Opryland","L",123],
+["Home2 Suites Colorado Springs South","L",119],
+["Hyatt Place Denver Airport","L",126],
+["Aloft Frisco","L",136],
+["Aloft Plano","L",136],
+["Pittsburgh Marriott North","F",298],
+["Hilton DFW Lakes Executive Conference Center","F",397],
+["Hilton Garden Inn Austin Downtown","L",254]
+];
+var state=DATA.map(function(d){return {name:d[0],type:d[1],rooms:d[2],base:d[1]==="F"?FS:SS,inv:false,cul:false};});
+var fmt=function(n){return "$"+n.toLocaleString("en-US");};
+function rowTotal(s){return s.base+(s.inv?INV:0)+(s.cul?CUL:0);}
+var sortKey=null, sortDir=1;
+function sortVal(s,k){ if(k==="name")return s.name.toLowerCase(); if(k==="type")return s.type; if(k==="base")return s.base; if(k==="total")return rowTotal(s); return 0; }
+function render(){
+  var f=document.querySelector(".filters button.active").dataset.f;
+  var q=document.getElementById("q").value.toLowerCase();
+  var list=state.filter(function(s){
+    if(f!=="all"&&s.type!==f)return false;
+    if(q&&s.name.toLowerCase().indexOf(q)<0)return false;
+    return true;
+  });
+  if(sortKey){
+    list.sort(function(a,b){var x=sortVal(a,sortKey),y=sortVal(b,sortKey);return x<y?-1*sortDir:x>y?1*sortDir:0;});
+  }
+  var tb=document.getElementById("rows");tb.innerHTML="";
+  list.forEach(function(s){
+    var i=state.indexOf(s);
+    var tr=document.createElement("tr");
+    tr.innerHTML=
+      '<td><div class="pname">'+s.name+'</div><div class="pmeta">'+s.rooms+' rooms</div></td>'+
+      '<td><span class="tag '+s.type+'">'+(s.type==="F"?"Full-Service":"Select-Service")+'</span></td>'+
+      '<td class="num base">'+fmt(s.base)+'</td>'+
+      '<td class="ctr"><label class="switch"><input type="checkbox" data-i="'+i+'" data-m="inv" '+(s.inv?"checked":"")+'><span class="slider"></span></label></td>'+
+      '<td class="ctr"><label class="switch"><input type="checkbox" data-i="'+i+'" data-m="cul" '+(s.cul?"checked":"")+'><span class="slider"></span></label>'+
+        '<select class="pos '+(s.cul?"show":"")+'" data-pos="'+i+'">'+POS.map(function(p){return '<option>'+p+'</option>';}).join("")+'</select></td>'+
+      '<td class="num rowtotal">'+fmt(rowTotal(s))+'</td>';
+    tb.appendChild(tr);
+  });
+  bind();summary();
+}
+function bind(){
+  document.querySelectorAll('input[data-m]').forEach(function(el){
+    el.onchange=function(){var i=+el.dataset.i;state[i][el.dataset.m]=el.checked;render();};
+  });
+}
+function summary(){
+  var props=0,inv=0,cul=0,monthly=0;
+  state.forEach(function(s){props++;if(s.inv)inv++;if(s.cul)cul++;monthly+=rowTotal(s);});
+  document.getElementById("s-props").textContent=props;
+  document.getElementById("s-inv").textContent=inv;
+  document.getElementById("s-cul").textContent=cul;
+  document.getElementById("s-monthly").textContent=fmt(monthly);
+}
+function setCarets(){
+  document.querySelectorAll("thead th.sortable").forEach(function(th){
+    var c=th.querySelector(".caret");
+    if(th.dataset.k===sortKey){th.classList.add("sorted");c.textContent=sortDir===1?"▲":"▼";}
+    else{th.classList.remove("sorted");c.textContent="";}
+  });
+}
+document.querySelectorAll("thead th.sortable").forEach(function(th){
+  th.onclick=function(){
+    var k=th.dataset.k;
+    if(sortKey===k){sortDir*=-1;}else{sortKey=k;sortDir=1;}
+    setCarets();render();
+  };
+});
+document.querySelectorAll(".filters button").forEach(function(b){
+  b.onclick=function(){document.querySelector(".filters button.active").classList.remove("active");b.classList.add("active");render();};
+});
+document.getElementById("q").oninput=render;
+render();
+</script>
+</body>
+</html>
