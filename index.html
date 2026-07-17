@@ -245,7 +245,7 @@ section { padding: 96px 32px; position: relative; }
 
 /* ── IMPLEMENTATION STEPPER ── */
 .impl-section { background: #fff; }
-.impl-stepper { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+.impl-stepper { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
 .phase-card { display: flex; flex-direction: column; background: #fff; border: 1px solid var(--stone-200); border-radius: var(--radius-2xl); padding: 24px 22px; position: relative; }
 .phase-card::before { content: ""; position: absolute; top: 0; left: 22px; right: 22px; height: 3px; background: var(--mint-500); border-radius: 0 0 3px 3px; }
 .phase-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 14px; }
@@ -257,6 +257,17 @@ section { padding: 96px 32px; position: relative; }
 .impl-footnote { margin-top: 24px; font-size: 13px; line-height: 1.55; color: var(--stone-500); max-width: 760px; }
 @media (max-width: 1000px) { .impl-stepper { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 600px) { .impl-stepper { grid-template-columns: 1fr; } }
+
+.impl-accel { margin-top: 40px; padding-top: 32px; border-top: 1px solid var(--stone-200); }
+.impl-accel-title { font-size: 20px; font-weight: var(--fw-black); color: var(--navy-900); letter-spacing: -0.01em; margin: 0 0 8px; }
+.impl-accel-sub { font-size: 14px; line-height: 1.55; color: var(--stone-700); max-width: 640px; margin: 0 0 20px; }
+.accel-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+.accel-card { background: var(--stone-100); border: 1px solid var(--stone-200); border-radius: var(--radius-xl); padding: 18px 16px; }
+.accel-num { width: 26px; height: 26px; border-radius: 50%; background: var(--mint-500); color: #fff; font-size: 12px; font-weight: var(--fw-bold); display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
+.accel-title { font-size: 13px; font-weight: var(--fw-bold); color: var(--navy-900); line-height: 1.3; margin-bottom: 6px; }
+.accel-desc { font-size: 11.5px; line-height: 1.5; color: var(--stone-700); }
+@media (max-width: 1000px) { .accel-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 600px) { .accel-grid { grid-template-columns: 1fr; } }
 
 /* ── COLLATERAL ── */
 .collateral-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
@@ -772,61 +783,87 @@ footer { background: #fff; padding: 36px 32px; border-top: 1px solid var(--stone
   <div class="container">
     <div class="eyebrow">Section 06 / Implementation</div>
     <h2 class="section-title">Your Path to Go-Live</h2>
-    <p class="section-sub">A guided, product-led rollout across all 40 properties, mostly self-serve, with Reeco support where you want it. AP automation is live in about a week; the full purchasing marketplace follows over roughly a month on the same foundation. Your contract is structured so you're never double-paying during the transition off One Source.</p>
+    <p class="section-sub">A four-wave, 120-day rollout across all 40 properties. Each wave kicks off 30 days after the last and builds on it, so you're never re-learning the process. Built from your team's May 18, June 18, and July 14 calls.</p>
 
     <div class="impl-stepper">
       <div class="phase-card reveal">
         <div class="phase-top">
           <div class="phase-num">01</div>
-          <div class="phase-chip">Week 1</div>
+          <div class="phase-chip">Day 0</div>
         </div>
-        <div class="phase-label">Kickoff</div>
-        <h3 class="phase-headline">Two short calls, then the platform leads.</h3>
-        <p class="phase-body">A management kickoff and a property-champion kickoff confirm your property list (17 full-service, 23 select-service), approval hierarchy, GL structure, and integration credentials for M3, Profit Sword, and Food Buy. No lengthy per-property discovery.</p>
+        <div class="phase-label">Wave 1 &middot; Pilot</div>
+        <h3 class="phase-headline">Five hotels first, then apply it portfolio-wide.</h3>
+        <p class="phase-body">Select five properties to align our teams on Avion's process. Prework and data gathering begin across the full portfolio, broadliner suppliers are built into the platform, and we align on operational success criteria before scaling what works.</p>
       </div>
 
       <div class="phase-card reveal">
         <div class="phase-top">
           <div class="phase-num">02</div>
-          <div class="phase-chip">~Week 1</div>
+          <div class="phase-chip">Day 30</div>
         </div>
-        <div class="phase-label">Guided Setup &amp; AP Go-Live</div>
-        <h3 class="phase-headline">An automated wizard connects M3. AP live in about a week.</h3>
-        <p class="phase-body">An automated setup wizard connects your real-time M3 API and Profit Sword feed and pulls in your vendors. AP automation goes live first, with invoices captured, AI-coded, and three-way matched into M3.</p>
+        <div class="phase-label">Wave 2 &middot; AP + Select-Service Purchasing</div>
+        <h3 class="phase-headline">AP live in one week, portfolio-wide.</h3>
+        <p class="phase-body">Reeco pulls everything from M3, so AP automation goes live across the full portfolio within a week and training wraps in week 1. Select-service purchasing implementation and additional supplier build-out run in parallel.</p>
       </div>
 
       <div class="phase-card reveal">
         <div class="phase-top">
           <div class="phase-num">03</div>
-          <div class="phase-chip">Weeks 2 to 4</div>
+          <div class="phase-chip">Day 60</div>
         </div>
-        <div class="phase-label">Purchasing Marketplace, Self-Connected</div>
-        <h3 class="phase-headline">Your Food Buy catalog, built in the background.</h3>
-        <p class="phase-body">Your Food Buy-approved suppliers are loaded into one marketplace; your team self-connects suppliers. GL coding, receiving with three-way match, and the corporate approval dashboard are configured along the way.</p>
+        <div class="phase-label">Wave 3 &middot; Full-Service Purchasing &amp; Inventory</div>
+        <h3 class="phase-headline">Full-service purchasing goes live; Inventory onboards where needed.</h3>
+        <p class="phase-body">Full-service purchasing implementation follows the same playbook as Wave 2, supplier catalogs are finalized, and any hotels adding the Inventory module are onboarded alongside it.</p>
       </div>
 
       <div class="phase-card reveal">
         <div class="phase-top">
           <div class="phase-num">04</div>
-          <div class="phase-chip">Weeks 3 to 4</div>
+          <div class="phase-chip">Day 90</div>
         </div>
-        <div class="phase-label">Academy Training &amp; Go-Live</div>
-        <h3 class="phase-headline">Self-paced training that ends in a real action.</h3>
-        <p class="phase-body">Property teams complete the self-paced Reeco Academy, AP first, then Purchasing. Training finishes when a user takes the real action, and properties go live as champions complete it.</p>
-      </div>
-
-      <div class="phase-card reveal">
-        <div class="phase-top">
-          <div class="phase-num">05</div>
-          <div class="phase-chip">Ongoing</div>
-        </div>
-        <div class="phase-label">Adoption &amp; Add-Ons</div>
-        <h3 class="phase-headline">Management-driven adoption, with Reeco on standby.</h3>
-        <p class="phase-body">An Adoption Dashboard tracks usage per property with automated nudges, and a dedicated CSM runs a 30/60/90 plan. Inventory and Culinary layer onto complex F&amp;B properties such as The Windsor Court. Reeco Plus white-glove onboarding is available as a paid upgrade.</p>
+        <div class="phase-label">Wave 4 &middot; Culinary</div>
+        <h3 class="phase-headline">Every hotel live on every module.</h3>
+        <p class="phase-body">The Culinary module is implemented wherever applicable, completing the rollout across all 40 properties by Day 120.</p>
       </div>
     </div>
 
-    <p class="impl-footnote">Implementation is product-guided and self-serve, with Reeco support throughout. Time-to-value is fast because the M3 integration is a live, real-time API and your team is guided through setup and training inside the platform.</p>
+    <p class="impl-footnote">Every wave runs the same cadence: Collect &amp; Connect in the first two weeks (ideally handled as prework before Day 1), Setup to Live by day 30, then Ongoing Support &amp; Improvement through Day 120 as adoption deepens.</p>
+
+    <div class="impl-accel">
+      <h3 class="impl-accel-title">What Accelerates Your Setup</h3>
+      <p class="impl-accel-sub">Providing these ahead of kickoff compresses the 14-day Collect &amp; Connect phase so properties reach Setup to Live faster.</p>
+      <div class="accel-grid">
+        <div class="accel-card reveal">
+          <div class="accel-num">1</div>
+          <div class="accel-title">Vendor List, Reps &amp; Account Numbers</div>
+          <div class="accel-desc">Per property &mdash; enables instant supplier connections.</div>
+        </div>
+        <div class="accel-card reveal">
+          <div class="accel-num">2</div>
+          <div class="accel-title">Login Credentials to Supplier Sites</div>
+          <div class="accel-desc">Per property &mdash; lets Reeco pull live pricing &amp; catalogs.</div>
+        </div>
+        <div class="accel-card reveal">
+          <div class="accel-num">3</div>
+          <div class="accel-title">Order Guides or Purchase History</div>
+          <div class="accel-desc">Seeds your personalized store from day one.</div>
+        </div>
+        <div class="accel-card reveal">
+          <div class="accel-num">4</div>
+          <div class="accel-title">Inventory Sheets</div>
+          <div class="accel-desc">If applicable &mdash; accelerates Inventory module setup.</div>
+        </div>
+        <div class="accel-card reveal">
+          <div class="accel-num">5</div>
+          <div class="accel-title">Recipes</div>
+          <div class="accel-desc">If applicable &mdash; enables F&amp;B cost visibility.</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:28px;">
+      <a href="https://docs.google.com/presentation/d/15-mbVKDsKx5XuJJnF3APFqokbvIsggZ--yvbVma-GSs/present" target="_blank" rel="noopener" class="btn btn-dark btn-lg">View the Full Rollout Plan Deck <span class="arr">&rarr;</span></a>
+    </div>
   </div>
 </section>
 
@@ -876,6 +913,17 @@ footer { background: #fff; padding: 36px 32px; border-top: 1px solid var(--stone
         <div>
           <div class="collateral-title">Customer Testimonial · Scarlett Hotel Group</div>
           <div class="collateral-desc">Kevin Patel, VP Revenue Management, on what running Reeco looks like day to day.</div>
+        </div>
+        <svg class="collateral-arr" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+      </a>
+
+<a class="collateral-card reveal" href="https://docs.google.com/presentation/d/15-mbVKDsKx5XuJJnF3APFqokbvIsggZ--yvbVma-GSs/present" target="_blank" rel="noopener">
+        <div class="collateral-icon deck">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="13" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="16" x2="12" y2="21"/></svg>
+        </div>
+        <div>
+          <div class="collateral-title">Implementation Rollout Plan</div>
+          <div class="collateral-desc">The four-wave, 120-day plan for your 40 properties, plus what to gather before kickoff.</div>
         </div>
         <svg class="collateral-arr" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
       </a>
