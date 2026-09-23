@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Avion Hospitality × Reeco — Interactive Pricing</title>
+<title>Avion Hospitality × Reeco | Per-Property Pricing</title>
 <style>
 :root{
   --navy-900:#0B2540; --navy-800:#103154; --navy-700:#1C4067;
@@ -81,7 +81,8 @@ tbody tr:hover{background:var(--mint-50)}
 .foot{font-size:12px;color:var(--stone-700);text-align:center;padding:22px}
 .foot a{color:var(--mint-700)}
 @media(max-width:760px){
-  thead th:nth-child(2),tbody td:nth-child(2){display:none}
+  thead th:nth-child(2),tbody td:nth-child(2),thead th:nth-child(3),tbody td:nth-child(3),thead th:nth-child(4),tbody td:nth-child(4){display:none}
+  .card{overflow-x:auto}
   .summary .wrap{gap:18px}
   .stat .v{font-size:17px}
 }
@@ -92,10 +93,10 @@ tbody tr:hover{background:var(--mint-50)}
   <div class="wrap">
     <div class="brandline"><span class="dot"></span> Interactive Pricing Proposal</div>
     <h1>Avion Hospitality <em>×</em> Reeco</h1>
-    <div class="sub">Per-property monthly pricing across your portfolio of 40 hotels — 17 Full-Service and 23 Select-Service. Toggle Inventory and Culinary add-ons by property to see your total update live. AP Automation + Purchasing &amp; Receiving is included on every property.</div>
+    <div class="sub">Per-property monthly pricing across all 40 Avion hotels, set September 23, 2026 and contingent on Avion moving forward with HSM as its GPO. AP Automation is $100 and Purchasing &amp; Receiving is $185 per property, $285 combined, on every hotel. Toggle Inventory and Culinary by property to see your total update live.</div>
     <div class="discount-badge">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-      20% Enterprise Discount Applied · M3 Setup Fees Waived
+      HSM Pricing · Set September 23, 2026 · Setup Waived With Full Portfolio
     </div>
   </div>
 </header>
@@ -117,6 +118,8 @@ tbody tr:hover{background:var(--mint-50)}
         <tr>
           <th class="sortable" data-k="name">Property <span class="caret"></span></th>
           <th class="sortable" data-k="type">Type <span class="caret"></span></th>
+          <th class="num">AP<br>$100</th>
+          <th class="num">Purchasing<br>$185</th>
           <th class="num sortable" data-k="base">AP + Purchasing <span class="caret"></span></th>
           <th class="ctr">Inventory<br>+$200</th>
           <th class="ctr">Culinary<br>+$200</th>
@@ -129,17 +132,17 @@ tbody tr:hover{background:var(--mint-50)}
 
   <div class="setup-strip">
     <div class="l">
-      <b>One-Time Setup:</b> <span class="strike">$1,000 / property</span> &nbsp;→&nbsp; <span class="free">$0 / property</span><br>
-      M3 integration fees are fully waived for Reeco — the only procurement platform with this status. Across 40 properties that is a <b>$40,000</b> setup credit.
+      <b>One-Time Setup:</b> <span class="strike">$1,000 / property</span> &nbsp;→&nbsp; <span class="free">$0 / property</span> when Avion signs the entire portfolio<br>
+      Across 40 properties that is a <b>$40,000</b> setup credit. M3 integration fees are also waived for Reeco, the only procurement platform with this status.
     </div>
     <div class="waiver-pill">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-      Setup Waived — M3 Preferred-Partner Integration
+      Setup Waived With Full Portfolio
     </div>
   </div>
 
   <div class="foot">
-    Pricing reflects list ($650 FS / $450 SS for AP + Purchasing) less a 20% enterprise discount. Add-ons priced flat at $200/property/month. Initial term 24 months · billed in advance · Net 30. Prepared June 19, 2026. Learn more at <a href="https://www.reeco.com">reeco.com</a>.
+    HSM pricing: AP Automation $100 + Purchasing &amp; Receiving $185 = $285 per property per month, contingent on Avion moving forward with HSM. List is $650 Full-Service / $450 Select-Service for AP + Purchasing. Inventory and Culinary add-ons at the quoted $200 per property per month. One-time setup waived when the full portfolio signs. Initial term 24 months · billed in advance · Net 30. Pricing set September 23, 2026. Learn more at <a href="https://www.reeco.com">reeco.com</a>.
   </div>
 </div>
 
@@ -154,8 +157,8 @@ tbody tr:hover{background:var(--mint-50)}
 </div>
 
 <script>
-var FS=520, SS=360, INV=200, CUL=200;
-var POS=["Micros / Oracle","Toast","Square","SkyTouch","Other / TBD"];
+var AP=100, PUR=185, FS=AP+PUR, SS=AP+PUR, INV=200, CUL=200;
+var POS=["Micros / Oracle","Toast","Square","SkyTouch","Other"];
 var DATA=[
 ["Embassy Suites College Station","F",162],
 ["Embassy Suites Houston Energy Corridor","F",216],
@@ -221,6 +224,8 @@ function render(){
     tr.innerHTML=
       '<td><div class="pname">'+s.name+'</div><div class="pmeta">'+s.rooms+' rooms</div></td>'+
       '<td><span class="tag '+s.type+'">'+(s.type==="F"?"Full-Service":"Select-Service")+'</span></td>'+
+      '<td class="num">'+fmt(AP)+'</td>'+
+      '<td class="num">'+fmt(PUR)+'</td>'+
       '<td class="num base">'+fmt(s.base)+'</td>'+
       '<td class="ctr"><label class="switch"><input type="checkbox" data-i="'+i+'" data-m="inv" '+(s.inv?"checked":"")+'><span class="slider"></span></label></td>'+
       '<td class="ctr"><label class="switch"><input type="checkbox" data-i="'+i+'" data-m="cul" '+(s.cul?"checked":"")+'><span class="slider"></span></label>'+
